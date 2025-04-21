@@ -1,137 +1,85 @@
 ﻿using System;
+using System.Runtime.ConstrainedExecution;
 
-namespace RockPaperScissors
+namespace NumberGuessingGame
 {
     class Program
     {
-        static void Main ( string[] args )
+        static void Main(string[] args)
         {
-            // Create Random class object
+
+            // Declare Random Object
             Random random = new Random();
 
-            //declare a variables
-            bool play = true;
-            String player;
-            String computer;
-            String answer;
+            // Declare Variables
+            bool playagain = true;
+            int min = 1;
+            int max = 50;
+            int guess;
+            int guesses;
+            int number;
+            String response;
 
-            // create while loop for start the game
-            while (play)
+            // create while loop for user play again or not
+            while(playagain)
             {
-                player = ""; 
-                computer = "";
-                answer = "";
 
-                // enter a valid input from the user
-                while(player != "ROCK" && player != "PAPER" && player != "SCISSORS" )
+                guess = 0;
+                guesses = 0;
+                response = "";
+                number = random.Next(min, max+1);
+
+                // Guess number is not match with the random number
+                while(guess != number)
                 {
-                    
-                    Console.Write("Enter a ROCK PAPER or SCISSORS : ");                 
-                    player = Console.ReadLine();
-                    player = player.ToUpper();
+                    // guess number between given renge 
+                    Console.WriteLine("Guess number between " + min + " - " + max +" :");
 
+                    // Read user input and convert into integer
+                    guess = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine("Guess : " + guess);
+
+                    // know the user number is high or low for guessing right number
+                    if (guess > number)
+                    {
+                        Console.WriteLine(guess + " is to high");
+                    }
+                    else if (guess < number)
+                    {
+                        Console.WriteLine(guess + " is to low");
+                    }
+                    guesses++;// increment the guesses 
                 }
-                // random number choose by the computer 1 to 4 
-                // 4 is exclusive
-                // random number is generate 1 to 3
-                switch (random.Next(1 ,4))
-                {
-                    case 1:
-                        computer = "ROCK";
-                        break;
-
-                    case 2:
-                        computer = "PAPER";
-                        break ;
-
-                    case 3:
-                        computer = "SCISSORS";
-                        break ; 
-
-                }
-                // show the chooses option
-                Console.WriteLine("Player : " + player);
-                Console.WriteLine("Computer : " + computer);
-
-                switch (player)
-                {
-                    //player side
-                    case "ROCK":
-
-                        // computer side
-                        if (computer == "ROCK")
-                        {
-                            // Result
-                            Console.WriteLine("It's Draw");
-                        }
-                        else if (computer == "PAPER")
-                        {
-                            Console.WriteLine("You Lose");
-                        }
-                        else
-                        {
-                            Console.WriteLine("You Win");
-                        }
-
-                        break;
-
-                    case "PAPER":
-
-                        if (computer == "ROCK")
-                        {
-                            Console.WriteLine("You Win");
-                        }
-                        else if (computer == "PAPER")
-                        {
-                            Console.WriteLine("It's Draw");
-                        }
-                        else
-                        {
-                            Console.WriteLine("You Lose");
-                        }
-                        break ;
-
-                    case "SCISSORS":
-                        if (computer == "ROCK")
-                        {
-                            Console.WriteLine("You Lose");
-                        }
-                        else if (computer == "PAPER")
-                        {
-                            Console.WriteLine("You Win");
-                        }
-                        else
-                        {
-                            Console.WriteLine("It's Draw");
-                        }
-                       
-                        break;
-
-                }
-
-                // playing the again or not
-                Console.WriteLine("Would You Like to play again Y/N : ");
-                answer = Console.ReadLine();
-                answer = answer.ToUpper();
-                    if (answer == "Y")
-                {
-                    play = true;
-                }
-                    else
-                {
-                    play = false;
-                }
-
+                // After guessing correct number
+                Console.WriteLine("Number : "+number);
                 
+                Console.WriteLine(" \a Congratulation You Win");
+                Console.WriteLine("Guesses : "+guesses);
 
+                // Response after completing a game user play again or not
+                Console.WriteLine("Would you play again Y/N");
+                response = Console.ReadLine();
+                response = response.ToUpper();
+
+                // response Y is for playing game 
+                if(response == "Y")
+                {
+                    playagain = true;
+
+                }
+                else
+                {
+                    playagain = false;
+                    Console.WriteLine("Thanks for Playing");
+                }
+
+                Console.ReadKey();
             }
-            // after pressing N 
-            Console.WriteLine("Thanks For Playing");
 
 
 
 
-            Console.ReadKey();  
+
         }
     }
 }
